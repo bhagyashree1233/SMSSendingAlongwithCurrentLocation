@@ -1,0 +1,38 @@
+<ion-view>
+    <ion-pane ng-controller="SMSController">
+        <ion-header-bar class="bar-stable bar-dark">
+            <h1 class="title" style="text-align:center;font-style:italic">Settings</h1>
+            <button style="background-color:black;color:white" ng-click="myGoBack()">
+                go back
+            </button>
+        </ion-header-bar>
+        <ion-content>
+            <div class="list card" id="numCard">
+                <label class="item item-input">
+                    <b> Name:</b><span class="input-label">{{Name}}</span>
+                </label>
+                <label class="item item-input">
+                    <b>Phone Number:</b><span class="input-label">{{PhoneNum}}</span>
+            </div>
+            </label>
+            <label class="item item-input-wrapper" id="phNo" style="font-style:italic">
+                <b> Enter Mobile Num:</b>
+                <input type="number" id="number" ng-model="sendPhno.phNum" placeholder="Enter Mobile Number">
+            </label>
+
+            <ion-list>
+                <ion-item  ng-repeat="sms1 in SendingSms ">
+                               <p >{{sms1}}</p>
+                    <p class="ion-close-circled" ng-click="close($index)">
+                    </p>
+                  
+                </ion-item>
+            </ion-list>
+            <button class="button button-positive" ng-click="addMore()" id='addMor' style="margin-left:0vh;margin-top:0vh" value="Add">Add</button>
+           
+            <!--<input type="submit" ng-click="sendSMS()" value="submit"></input>-->
+            <!-- <input type="submit" ng-click="geoLocation()" value="submit"></input>-->
+        </ion-content>
+    </ion-pane>
+
+</ion-view>

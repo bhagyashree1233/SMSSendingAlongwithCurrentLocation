@@ -1,0 +1,46 @@
+#setting{
+margin-top:2vh;
+background-color:rgba(130, 159, 194, 0.62);
+width:25vh;
+color:white;
+text-align:center;
+font-style: italic;
+position:relative;
+float:right;
+font-size: 200%;
+}
+
+#sendSms {
+  border-radius: 50%;
+	width: 25vh;
+	height: 25vh;
+	margin:auto;
+	font-size: 200%;
+	font-style: italic;
+}
+
+#numCard{
+	width:80%;
+	height:20vh;
+	text-align:center;
+	font-style:italic;
+}
+#phNo{
+	height:15vh;
+}
+#goback{
+	height:5vh;
+	width:10vh;
+	
+}
+#addMor{
+margin-top:10vh;
+
+float:right;
+width:35vh;
+line-height:10vh !important;
+border-radius: 1vh;
+color:white;
+background:#387ef5;
+
+}
