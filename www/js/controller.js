@@ -39,44 +39,14 @@ angular.module('starter.controllers', [])
 
  
 
-   $rootScope.SendingSms=[];
-  $scope.sendSms=null;
-  $scope.sendPhno={};
-  $scope.addMore=function(){
-    console.log('Hai')
-    console.log($scope.sendPhno.phNum)
-    console.log($rootScope.SendingSms.length)
-  if( $rootScope.SendingSms.length<10){
-   var sendPhno =$scope.sendPhno.phNum.toString();
-  $rootScope.SendingSms.push(sendPhno);
-
-  console.log( $rootScope.SendingSms)
   
-  document.getElementById("number").value="";
-  }else{
-    localStorage.setItem("sendSMS",$rootScope.SendingSms)
-    
-    document.getElementById('addMor').style.background  ='red';
-    console.log('Limit Exceds')
-  }
-}
-$scope.close=function(index){
-  console.log(index)
-  console.log($rootScope.SendingSms)
-  $rootScope.SendingSms.splice(index,1);
-  console.log($rootScope.SendingSms)
-}
-$scope.myGoBack = function() {
-  console.log('Hai')
-    window.history.back();
-  };
-})
 
-
-.controller('Setting', function($scope,$state, $cordovaSms,$rootScope) {
- var SendingSms=localStorage.getItem("sendSMS")
- console.log(SendingSms)
   document.addEventListener("deviceready", function() {
+    cordova.plugins.diagnostic.isGpsLocationAvailable(function(available){
+    console.log("GPS location is " + (available ? "available" : "not available"));
+}, function(error){
+    console.error("The following error occurred: "+error);
+});
  
   var options = {
     replaceLineBreaks: false, // true to replace \n by a new line, false by default
@@ -88,12 +58,15 @@ $scope.myGoBack = function() {
   };
  
   $scope.sendSMS = function() {
- 
+     console.log('Name: '+$rootScope.Name+' Phone Numer: '+$rootScope.PhoneNum
+ +' Location: '+$rootScope.location);
+  var sendSms= JSON.parse(localStorage.getItem("sendSMS1"));
+
  var sms='Name: '+$rootScope.Name+' Phone Numer: '+$rootScope.PhoneNum
  +' Location: '+$rootScope.location;
-
+for(var i=0;i< sendSms.length;i++){
     $cordovaSms
-      .send(SendingSms, sms, options)
+      .send(sendSms[i], sms, options)
       .then(function() {
         alert('Success');
         // Success! SMS was sent
@@ -104,10 +77,48 @@ $scope.myGoBack = function() {
       });
   }
 
-  
+  }
 
 });
 
-  
 
+})
+
+
+.controller('Setting', function($scope,$state, $cordovaSms,$rootScope) {
+ 
+ $rootScope.SendingSms=[];
+  $scope.sendSms=null;
+  $scope.sendPhno={};
+  $scope.addMore=function(){
+    console.log('Hai')
+    console.log($scope.sendPhno.phNum)
+    console.log($rootScope.SendingSms.length)
+  if( $rootScope.SendingSms.length<10){
+   var sendPhno =$scope.sendPhno.phNum.toString();
+  $rootScope.SendingSms.push(sendPhno);
+
+  console.log( $rootScope.SendingSms)
+    localStorage.setItem("sendSMS1",JSON.stringify($rootScope.SendingSms))
+   var sendSms= JSON.parse(localStorage.getItem("sendSMS1"));
+  document.getElementById("number").value="";
+  }else{
+    localStorage.setItem("sendSMS1",JSON.stringif($rootScope.SendingSms))
+    console.log(JSON.parse(localStorage.getItem("sendSMS1")))
+    
+    document.getElementById('addMor').style.background  ='red';
+    console.log('Limit Exceds')
+  }
+}
+
+  $scope.myGoBack = function() {
+  console.log('Hai')
+    window.history.back();
+  };
+   $scope.close=function(index){
+  console.log(index)
+  console.log($rootScope.SendingSms)
+  $rootScope.SendingSms.splice(index,1);
+  console.log($rootScope.SendingSms)
+}
 })
